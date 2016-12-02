@@ -36,6 +36,19 @@
                       ]  
                        }  
                      ] 
+       },
+	   {"name": "flightDetails", "type" : "response"
+             ,"responseItems" : 
+            [ { "type":"prompt", "languages": 
+                 [{"language":"en","prompt": "Flight Details are as follows : {{flowScope.departureTime}} "}
+                 ] 
+              } 
+            ] 
+			,"componentServices" : [{"name" : "getFlightDepartureTime"
+                               ,"inputParams":[{"name" : "flightNo", "value": "{{flightNo}}"}]
+                               ,"outputParams": [{"name" : "departureTime","scope": "flow"}]
+                               }
+                              ] 
        }
 	
 	]

@@ -1,0 +1,33 @@
+{
+  "items": [
+    {
+      "type": "prompt",
+      "prompt": "Hi Soham, welcome to Automated Airport Services"
+    },
+    {
+      "type": "prompt",
+      "prompt": "tell us, what do you need?",
+      "options": [
+        {
+          "prompt": "My Flight Info",
+          "payload": {
+            "event": "flightInfo"
+          }
+        },
+        {
+          "prompt": "General Airport Info",
+          "payload": {
+            "event": "airportInfo"
+          }
+        },
+        {
+          "prompt": "Baggage Related Info",
+          "payload": {
+            "event": "baggageInfo"
+          }
+        }
+      ]
+    }
+  ],
+  "metadata": {}
+}

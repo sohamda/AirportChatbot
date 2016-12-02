@@ -11,7 +11,8 @@ var componentServices = {};
 
 componentServices.getFlightDepartureTime = function (inputParams,outputParamNames) {
   return Promise.resolve(airlines).then(function(airlines) {
-   var outputParams = {};   
+   var outputParams = {}; 
+console.log(inputParams);   
    outputParams[outputParamNames[0]] = getFlightDetails(inputParams.flightNo).departureTime; 
    return outputParams;
   });
@@ -152,6 +153,7 @@ componentServices.getIsNotAllowed = function (inputParams,outputParamNames) {
    return outputParams;
   });
 };
+
 
 
 var getFlightDetails = function(flightNo) {
