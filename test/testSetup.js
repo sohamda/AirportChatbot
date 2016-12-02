@@ -16,7 +16,7 @@ exports.injectMockServices = function() {
     mcsServices.setBotConfig(botconfig);
     mcsServices.addFlow(require("../airportFlow"));
 //    mcsServices.addFlow(require("../Flows/testuiflow"));
-    mcsServices.setComponentServices(require("../test/componentServicesMock"));    
+    mcsServices.setComponentServices(require("../routes/airportServices"));    
     // instantiate chatBotEngine module with mock mcsServices
     var chatbotEngine = require("../../chatbot/impl/chatbotEngine")(mcsServices);
     return chatbotEngine;
