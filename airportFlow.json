@@ -1,0 +1,42 @@
+{
+	"name": "airportFlow",
+	"stateTransitions": [
+			 { "from": "*", "name": "start", "to": "menu" }
+			,{ "from": "*", "name": "flightInfo", "to": "flightDetails" }
+			,{ "from": "*", "name": "airportInfo", "to": "airportDetails" }
+			,{ "from": "*", "name": "baggageInfo", "to": "baggageDetails" }
+			,{ "from": "*", "name": "allowedItems",  "to": "allowedItemDetails"}
+	],
+	"states": [
+		{"name": "menu", "type" : "response"
+             ,"responseItems" : 
+            [ { "type":"prompt", "languages": 
+                 [{"language":"en","prompt": "Hi {{sessionScope.userFirstName}} {{sessionScope.userLastName}}, welcome to Automated Airport Services"}
+                 ] 
+              }    
+             ,{"type":"prompt","languages": 
+                 [{"language":"en","prompt": "tell us, what do you need?"}] 
+                ,"options" : 
+                     [{"payload" : { "event" : "flightInfo" }
+                        ,"languages" : 
+                          [{"language": "en", "prompt": "My Flight Info"}]   
+                       }
+                      ,{"payload" : { "event" : "airportInfo" }
+                        ,"languages" : 
+                          [{"language": "en", "prompt": "General Airport Info"}]   
+                       } 
+                      ,{"payload" : { "event" : "baggageInfo" }
+                        ,"languages" : 
+                          [{"language": "en", "prompt": "Baggage Related Info"}]   
+                       } 
+					   ,{"payload" : { "event" : "allowedItems" }
+                        ,"languages" : 
+                          [{"language": "en", "prompt": "Things I can carry"}]   
+                       } 
+                      ]  
+                       }  
+                     ] 
+       }
+	
+	]
+}

@@ -1,0 +1,68 @@
+[ {"code":"AF", "displayName": "Air France", 
+	"checkInURL": "www.airfrance.com", 
+	"flights": [{"code":"112", "departureTime": "0945", 
+						"destination": {"city": "Porto", "country": "Portugal"}, 
+						"immigration": "false", 
+						"checkin": {"counter": "18", "gate": "1A"}
+						},
+			{"code":"121", "departureTime": "1245", 
+					"destination": {"city": "Chicago", "country": "USA"}, 
+					"immigration": "true", 
+					"checkin": {"counter": "13", "gate": "1B"}
+					},
+			{"code":"132", "departureTime": "1600", 
+					"destination": {"city": "Paris", "country": "France"}, 
+					"immigration": "false", 
+					"checkin": {"counter": "21", "gate": "1A"}
+					},
+			{"code":"142", "departureTime": "1835", 
+					"destination": {"city": "Oslo", "country": "Norway"}, 
+					"immigration": "false", 
+					"checkin": {"counter": "18", "gate": "1A"}
+					}]
+	},
+{"code": "AI", "displayName": "Air India", 
+	"checkInURL": "www.airindia.com", 
+	"flights": [{"code":"212", "departureTime": "0645", 
+				"destination": {"city": "Mumbai", "country": "India"}, 
+				"immigration": "true", 
+				"checkin": {"counter": "6", "gate": "1B"}},
+			{"code":"221","departureTime": "1200", 
+				"destination": {"city": "Delhi", "country": "India"}, 
+				"immigration": "true", 
+				"checkin": {"counter": "7", "gate": "1B"}},
+			{"code":"232","departureTime": "1630", "destination": {"city": "Mumbai", "country": "India"}, "immigration": "true", "checkin": {"counter": "9", "gate": "1B"}},
+			{"code":"242","departureTime": "2035", "destination": {"city": "Delhi", "country": "India"}, "immigration": "true", "checkin": {"counter": "10", "gate": "1B"}}]
+	},
+{"code":"AA", "displayName": "American Airline", 
+	"checkInURL": "www.americanairlines.com", 
+	"flights": [{"code":"312","departureTime": "0845", "destination": {"city": "New York", "country": "USA"}, "immigration": "true", "checkin": {"counter": "6", "gate": "1B"}},
+			{"code":"321", "departureTime": "1100", "destination": {"city": "Washington", "country": "USA"}, "immigration": "true", "checkin": {"counter": "7", "gate": "1B"}}
+			]
+	},
+{"code":"BA", "displayName": "British Airways", 
+	"checkInURL": "www.ba.com", 
+	"flights": [{"code":"412","departureTime": "1045", "destination": {"city": "London", "country": "UK"}, "immigration": "true", "checkin": {"counter": "12", "gate": "1A"}},
+	{"code":"412","departureTime": "1045", "destination": {"city": "London", "country": "UK"}, "immigration": "true", "checkin": {"counter": "12", "gate": "1A"}}
+			]
+	},
+{"code": "EK", "displayName": "Emirates", 
+	"checkInURL": "www.emirates.com", 
+	"flights": [{"code":"512","departureTime": "1430", "destination": {"city": "Dubai", "country": "UAE"}, "immigration": "true", "checkin": {"counter": "2", "gate": "2A"}},
+			{"code":"521","departureTime": "1830", "destination": {"city": "Dubai", "country": "UAE"}, "immigration": "true", "checkin": {"counter": "2", "gate": "2A"}}
+			]
+	},
+{"code": "LH", "displayName": "Lufthansa", 
+	"checkInURL": "www.lufthansa.com", 
+	"flights": [{"code":"612","departureTime": "0830", "destination": {"city": "Frankfurt", "country": "Germany"}, "immigration": "false", "checkin": {"counter": "21", "gate": "1A"}},
+			{"code":"521","departureTime": "1430", "destination": {"city": "Munich", "country": "Germany"}, "immigration": "true", "checkin": {"counter": "21", "gate": "1A"}}
+			]
+	},
+{"code":"KL", "displayName": "KLM Royal Dutch", 
+	"checkInURL": "www.klm.com", 
+	"flights": [{"code":"212","departureTime": "0645", "destination": {"city": "New York", "country": "ÙSA"}, "immigration": "true", "checkin": {"counter": "6", "gate": "1B"}},
+			{"code":"221","departureTime": "1200", "destination": {"city": "Delhi", "country": "India"}, "immigration": "true", "checkin": {"counter": "7", "gate": "1B"}},
+			{"code":"232","departureTime": "1630", "destination": {"city": "Budapest", "country": "Hungary"}, "immigration": "false", "checkin": {"counter": "9", "gate": "1B"}},
+			{"code":"242","departureTime": "2035", "destination": {"city": "Valencia", "country": "Spain"}, "immigration": "false", "checkin": {"counter": "10", "gate": "1B"}}]
+	}
+]

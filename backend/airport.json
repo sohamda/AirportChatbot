@@ -1,0 +1,12 @@
+{
+"name": "Schipol",
+"address": "Evert van de Beekstraat 202, 1118 CP Schiphol, Netherlands",
+"route": {"car": "It is close to A9 and A4", "public": "Connected via Buses, Trains and Trams, check 9292ov.nl", "taxi": "Reserve on http://www.schiphol.nl/Travellers/ToFromSchiphol/SchipholTravelTaxi/ReserveSchipholTravelTaxi.htm"},
+"baggageInfo": "Generally, it depends on your airline",
+"arrival": "You should come atleast 2hrs before the departure of your flight, for international flight it can take more time",
+"allowed": [{"code": "liquid", "extraInfo": "100ml or less"}, {"code": "gel", "extraInfo": "100ml or less"}, {"code": "cream", "extraInfo": "100ml or less"},
+			{"code": "ipad", "extraInfo": ""}, {"code": "phone", "extraInfo": ""}],
+"notAllowed": [{"code": "Knife", "extraInfo": ""}, {"code": "Gun", "extraInfo": ""}, {"code": "Scissor", "extraInfo": ""}],
+"regulations": "http://www.schiphol.nl/WelcomeToSchiphol/Baggage1.htm",
+"delayedFlights": [{"code": "AF142"}, {"code": "AI232"}, {"code": "LH521"}, {"code": "KL242"}]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "airport",
+  "version": "1.0.0",
+  "description": "Components API to call airport backend services",
+  "main": "airport.js",
+  "author": "Soham Dasgupta",
+  "scripts": {
+  },
+  "oracleMobile": {
+    "dependencies": {
+      "apis": {},
+      "connectors": {}
+    }
+  },
+  "dependencies": {
+    "bluebird": "^3.4.6"
+  }
+}
