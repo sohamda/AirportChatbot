@@ -12,7 +12,21 @@ var componentServices = {};
 componentServices.getFlightDepartureTime = function (inputParams,outputParamNames) {
   return Promise.resolve(airlines).then(function(airlines) {
    var outputParams = {};   
-   outputParams[outputParamNames[0]] = getFlightDetails(inputParams.flightNo).departureTime; 
+   outputParams[outputParamNames[0]] = getFlightDetails(inputParams.flightNo.toUpperCase()).departureTime; 
+   return outputParams;
+  });
+};
+
+componentServices.getIsFlightDelayed = function (inputParams,outputParamNames) {
+  return Promise.resolve(airport).then(function(airport) {
+   var outputParams = {};   
+   var isDelayed = false;
+   airport.delayedFlights.forEach(function(delayedFlight){
+	   if(delayedFlight.code.toUpperCase() === inputParams.flightNo.toUpperCase()) {
+			isDelayed = true;
+	   }
+   });
+   outputParams[outputParamNames[0]] = isDelayed ; 
    return outputParams;
   });
 };

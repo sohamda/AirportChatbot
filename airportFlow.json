@@ -2,20 +2,24 @@
 	"name": "airportFlow",
 	"stateTransitions": [
 			 { "from": "*", "name": "start", "to": "menu" }
-			,{ "from": "*", "name": "flightInfo", "to": "flightDetails" }
+			,{ "from": "*", "name": "flightInfo", "to": "enterFlightNo" }
 			,{ "from": "*", "name": "airportInfo", "to": "airportDetails" }
 			,{ "from": "*", "name": "baggageInfo", "to": "baggageDetails" }
 			,{ "from": "*", "name": "allowedItems",  "to": "allowedItemDetails"}
+			,{ "from": "enterFlightNo", "name": "flightNoEntered", "to": "flightDetails" }
+			,{ "from": "flightDetails", "name": "immigrationInfo", "to": "immigrationDetails" }
+			,{ "from": "flightDetails", "name": "checkinInfo", "to": "checkinDetails" }
+			,{ "from": "flightDetails", "name": "onlineCheckin", "to": "onlineCheckinDetails" }
 	],
 	"states": [
 		{"name": "menu", "type" : "response"
              ,"responseItems" : 
             [ { "type":"prompt", "languages": 
-                 [{"language":"en","prompt": "Hi {{sessionScope.userFirstName}} {{sessionScope.userLastName}}, welcome to Automated Airport Services"}
+                 [{"language":"en","prompt": "Hi {{sessionScope.userFirstName}}, welcome to Automated Airport Services. I am Airobot."}
                  ] 
               }    
              ,{"type":"prompt","languages": 
-                 [{"language":"en","prompt": "tell us, what do you need?"}] 
+                 [{"language":"en","prompt": "tell me, what do you need?"}] 
                 ,"options" : 
                      [{"payload" : { "event" : "flightInfo" }
                         ,"languages" : 
@@ -36,20 +40,90 @@
                       ]  
                        }  
                      ] 
-       },
-	   {"name": "flightDetails", "type" : "response"
+       }
+	   ,{"name":"enterFlightNo", "type" : "response"
+        ,"responseItems" : [ { "type": "prompt", "languages": 
+                         [{"language":"en","prompt": "Tell me your flight number, please?"}] 
+                       }
+                     ]  
+        ,"payload" : { "event" : "flightNoEntered" } 
+      } 
+	   ,{"name": "flightDetails", "type" : "response"
              ,"responseItems" : 
             [ { "type":"prompt", "languages": 
-                 [{"language":"en","prompt": "Flight Details are as follows : {{flowScope.departureTime}} "}
+                 [{"language":"en","prompt": "Your flight departs at {{flowScope.departureTime}} "}
                  ] 
-              } 
+              }
+			 ,{ "type":"prompt", "languages": 
+                 [{"language":"en","prompt": "{{#isDelayed}} And, it looks like, your flight has reported a delay in departure. Sorry about that.{{/isDelayed}}"}
+                 ] 
+              }
+			  ,{"type":"prompt","languages": 
+                 [{"language":"en","prompt": "Do you want, the following info on your flight?"}] 
+                ,"options" : 
+                     [{"payload" : { "event" : "immigrationInfo" }
+                        ,"languages" : 
+                          [{"language": "en", "prompt": "Immigration Info"}]   
+                       }
+                      ,{"payload" : { "event" : "checkinInfo" }
+                        ,"languages" : 
+                          [{"language": "en", "prompt": "Check-in Counter/Gate"}]   
+                       } 
+                      ,{"payload" : { "event" : "onlineCheckin" }
+                        ,"languages" : 
+                          [{"language": "en", "prompt": "Online Check-in URL"}]   
+                       } 
+                      ]  
+                       }
             ] 
 			,"componentServices" : [{"name" : "getFlightDepartureTime"
-                               ,"inputParams":[{"name" : "flightNo", "value": "{{flightNo}}"}]
+                               ,"inputParams":[{"name" : "flightNo", "value": "{{flowScope.enterFlightNo}}"}]
                                ,"outputParams": [{"name" : "departureTime","scope": "flow"}]
+                               }
+							   ,{"name" : "getIsFlightDelayed"
+                               ,"inputParams":[{"name" : "flightNo", "value": "{{flowScope.enterFlightNo}}"}]
+                               ,"outputParams": [{"name" : "isDelayed","scope": "request"}]
                                }
                               ] 
        }
-	
+	,{"name": "immigrationDetails", "type" : "response"
+             ,"responseItems" : 
+            [ { "type":"prompt", "languages": 
+                 [{"language":"en","prompt": "{{#immigration}} You don't have go to through immigration.{{/immigration}} {{#^immigration}} You have go to for immigration.{{/immigration}}"}
+                 ] 
+              }
+			  ] 
+			,"componentServices" : [{"name" : "getFlightImmigartionInfo"
+                               ,"inputParams":[{"name" : "flightNo", "value": "{{flowScope.enterFlightNo}}"}]
+                               ,"outputParams": [{"name" : "immigration","scope": "request"}]
+                               }
+                              ] 
+       }
+	   ,{"name": "checkinDetails", "type" : "response"
+             ,"responseItems" : 
+            [ { "type":"prompt", "languages": 
+                 [{"language":"en","prompt": "Your check-in counter is {{counter}} and it is in gate {{gate}} "}
+                 ] 
+              }
+			  ] 
+			,"componentServices" : [{"name" : "getFlightCheckInCounter"
+                               ,"inputParams":[{"name" : "flightNo", "value": "{{flowScope.enterFlightNo}}"}]
+                               ,"outputParams": [{"name" : "counter","scope": "request"}, {"name" : "gate","scope": "request"}]
+                               }
+                              ] 
+       }
+	   ,{"name": "onlineCheckinDetails", "type" : "response"
+             ,"responseItems" : 
+            [ { "type":"prompt", "languages": 
+                 [{"language":"en","prompt": "Follow this URL to check-in online {{checkInURL}} "}
+                 ] 
+              }
+			  ] 
+			,"componentServices" : [{"name" : "getFlightCheckIn"
+                               ,"inputParams":[{"name" : "flightNo", "value": "{{flowScope.enterFlightNo}}"}]
+                               ,"outputParams": [{"name" : "checkInURL","scope": "request"}]
+                               }
+                              ] 
+       }
 	]
 }
