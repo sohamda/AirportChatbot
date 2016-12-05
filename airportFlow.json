@@ -1,12 +1,12 @@
-{
-	"name": "airportFlow",
-	"stateTransitions": [
+{"name": "airportFlow",
+  "stateTransitions": [
 			 { "from": "*", "name": "start", "to": "menu" }
+			,{ "from": "*", "name": "invalidStateTransition", "to": "stateTransitionError" }
 			,{ "from": "*", "name": "flightInfo", "to": "enterFlightNo" }
 			,{ "from": "*", "name": "airportInfo", "to": "airportDetails" }
 			,{ "from": "*", "name": "baggageInfo", "to": "baggageDetails" }
 			,{ "from": "*", "name": "allowedItems",  "to": "allowedItemDetails"}
-			,{ "from": "enterFlightNo", "name": "flightNoEntered", "to": "flightDetails" }
+			,{ "from": "enterFlightNo", "name": "textSent", "to": "flightDetails" }
 			,{ "from": "flightDetails", "name": "immigrationInfo", "to": "immigrationDetails" }
 			,{ "from": "flightDetails", "name": "checkinInfo", "to": "checkinDetails" }
 			,{ "from": "flightDetails", "name": "onlineCheckin", "to": "onlineCheckinDetails" }
@@ -46,16 +46,12 @@
                          [{"language":"en","prompt": "Tell me your flight number, please?"}] 
                        }
                      ]  
-        ,"payload" : { "event" : "flightNoEntered" } 
+        ,"payload" : { "event" : "textSent" } 
       } 
 	   ,{"name": "flightDetails", "type" : "response"
              ,"responseItems" : 
             [ { "type":"prompt", "languages": 
-                 [{"language":"en","prompt": "Your flight departs at {{flowScope.departureTime}} "}
-                 ] 
-              }
-			 ,{ "type":"prompt", "languages": 
-                 [{"language":"en","prompt": "{{#isDelayed}} And, it looks like, your flight has reported a delay in departure. Sorry about that.{{/isDelayed}}"}
+                 [{"language":"en","prompt": "Your flight departs at {{flowScope.departureTime}}, {{#isDelayed}} And, it looks like, your flight has reported a delay in departure. Sorry about that. {{/isDelayed}}"}
                  ] 
               }
 			  ,{"type":"prompt","languages": 
@@ -89,7 +85,7 @@
 	,{"name": "immigrationDetails", "type" : "response"
              ,"responseItems" : 
             [ { "type":"prompt", "languages": 
-                 [{"language":"en","prompt": "{{#immigration}} You don't have go to through immigration.{{/immigration}} {{#^immigration}} You have go to for immigration.{{/immigration}}"}
+                 [{"language":"en","prompt": "{{#immigration}} You {{#immigration}}don't{{/immigration}} have go to through immigration."}
                  ] 
               }
 			  ] 
@@ -125,5 +121,17 @@
                                }
                               ] 
        }
+	   ,{"name": "stateTransitionError", "type" : "response"
+       ,"responseItems" : 
+           [ {"type": "prompt", "languages": 
+                [{"language":"en","prompt": "This option is no longer available, do you want to return to the start menu?"}] 
+            ,"options" : 
+                 [{"payload" : { "event" : "start" }
+                    ,"languages" : 
+                       [{"language": "en", "prompt": "Yes"}]   
+                  }]
+              }  
+           ]
+     }     
 	]
 }

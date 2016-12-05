@@ -3,6 +3,8 @@ var Promise = require("bluebird");
 var airlines = require('../backend/airlines.json');
 var airport = require('../backend/airport.json');
 
+var airportFlow = require('../airportFlow.json');
+
 exports.getComponentService = function (name) {
    return componentServices[name];
 }
@@ -12,7 +14,7 @@ var componentServices = {};
 componentServices.getFlightDepartureTime = function (inputParams,outputParamNames) {
   return Promise.resolve(airlines).then(function(airlines) {
    var outputParams = {};   
-   outputParams[outputParamNames[0]] = getFlightDetails(inputParams.flightNo.toUpperCase()).departureTime; 
+   outputParams['departureTime'] = getFlightDetails(inputParams.flightNo.toUpperCase()).departureTime; 
    return outputParams;
   });
 };
@@ -24,9 +26,12 @@ componentServices.getIsFlightDelayed = function (inputParams,outputParamNames) {
    airport.delayedFlights.forEach(function(delayedFlight){
 	   if(delayedFlight.code.toUpperCase() === inputParams.flightNo.toUpperCase()) {
 			isDelayed = true;
+			
 	   }
    });
-   outputParams[outputParamNames[0]] = isDelayed ; 
+   console.log("isDelayed :" + isDelayed);
+   outputParams['isDelayed'] = isDelayed ; 
+   console.log("outputParams :" + JSON.stringify(outputParams));
    return outputParams;
   });
 };
@@ -34,7 +39,7 @@ componentServices.getIsFlightDelayed = function (inputParams,outputParamNames) {
 componentServices.getFlightCheckIn = function (inputParams,outputParamNames) {
   return Promise.resolve(airlines).then(function(airlines) {
    var outputParams = {};   
-   outputParams[outputParamNames[0]] = getAirline(inputParams.flightNo).checkInURL; 
+   outputParams['checkInURL'] = getAirline(inputParams.flightNo.toUpperCase()).checkInURL; 
    return outputParams;
   });
 };
@@ -42,9 +47,9 @@ componentServices.getFlightCheckIn = function (inputParams,outputParamNames) {
 componentServices.getFlightCheckInCounter = function (inputParams,outputParamNames) {
   return Promise.resolve(airlines).then(function(airlines) {
    var outputParams = {};   
-   var checkInInfo = getFlightDetails(inputParams.flightNo).checkin;
-   outputParams[outputParamNames[0]] = checkInInfo.counter; 
-   outputParams[outputParamNames[1]] = checkInInfo.gate; 
+   var checkInInfo = getFlightDetails(inputParams.flightNo.toUpperCase()).checkin;
+   outputParams['counter'] = checkInInfo.counter; 
+   outputParams['gate'] = checkInInfo.gate; 
    return outputParams;
   });
 };
@@ -52,7 +57,7 @@ componentServices.getFlightCheckInCounter = function (inputParams,outputParamNam
 componentServices.getFlightImmigartionInfo = function (inputParams,outputParamNames) {
   return Promise.resolve(airlines).then(function(airlines) {
    var outputParams = {};   
-   outputParams[outputParamNames[0]] = getFlightDetails(inputParams.flightNo).immigration; 
+   outputParams['immigration'] = (getFlightDetails(inputParams.flightNo.toUpperCase()).immigration === "true"); 
    return outputParams;
   });
 };
@@ -60,7 +65,7 @@ componentServices.getFlightImmigartionInfo = function (inputParams,outputParamNa
 componentServices.getAirportAddress = function (inputParams,outputParamNames) {
   return Promise.resolve(airport).then(function(airport) {
    var outputParams = {};   
-   outputParams[outputParamNames[0]] = airport.immigration; 
+   outputParams['address'] = airport.address; 
    return outputParams;
   });
 };
@@ -68,7 +73,7 @@ componentServices.getAirportAddress = function (inputParams,outputParamNames) {
 componentServices.getAirportRouteByCar = function (inputParams,outputParamNames) {
   return Promise.resolve(airport).then(function(airport) {
    var outputParams = {};   
-   outputParams[outputParamNames[0]] = airport.route.car; 
+   outputParams['car'] = airport.route.car; 
    return outputParams;
   });
 };
@@ -76,7 +81,7 @@ componentServices.getAirportRouteByCar = function (inputParams,outputParamNames)
 componentServices.getAirportRouteByPublicTransport = function (inputParams,outputParamNames) {
   return Promise.resolve(airport).then(function(airport) {
    var outputParams = {};   
-   outputParams[outputParamNames[0]] = airport.route.public; 
+   outputParams['public'] = airport.route.public; 
    return outputParams;
   });
 };
@@ -84,7 +89,7 @@ componentServices.getAirportRouteByPublicTransport = function (inputParams,outpu
 componentServices.getAirportRouteByTaxi = function (inputParams,outputParamNames) {
   return Promise.resolve(airport).then(function(airport) {
    var outputParams = {};   
-   outputParams[outputParamNames[0]] = airport.route.taxi; 
+   outputParams['taxi'] = airport.route.taxi; 
    return outputParams;
   });
 };
@@ -92,7 +97,7 @@ componentServices.getAirportRouteByTaxi = function (inputParams,outputParamNames
 componentServices.getAirportArrival = function (inputParams,outputParamNames) {
   return Promise.resolve(airport).then(function(airport) {
    var outputParams = {};   
-   outputParams[outputParamNames[0]] = airport.route.arrival; 
+   outputParams['arrival'] = airport.route.arrival; 
    return outputParams;
   });
 };
@@ -100,7 +105,7 @@ componentServices.getAirportArrival = function (inputParams,outputParamNames) {
 componentServices.getBaggageInfo = function (inputParams,outputParamNames) {
   return Promise.resolve(airport).then(function(airport) {
    var outputParams = {};   
-   outputParams[outputParamNames[0]] = airport.baggageInfo; 
+   outputParams['baggageInfo'] = airport.baggageInfo; 
    return outputParams;
   });
 };
@@ -112,9 +117,10 @@ componentServices.getDelayedFlight = function (inputParams,outputParamNames) {
    airport.delayedFlights.forEach(function(eachDelayedFlight){
 	   if(eachDelayedFlight === inputParams.flightNo) {
 		   isDelayed = true;
+		   
 	   }
-   })
-   outputParams[outputParamNames[0]] = isDelayed; 
+   })   
+   outputParams['isDelayed'] = isDelayed; 
    return outputParams;
   });
 };
@@ -122,8 +128,8 @@ componentServices.getDelayedFlight = function (inputParams,outputParamNames) {
 componentServices.getAllowedItems = function (inputParams,outputParamNames) {
   return Promise.resolve(airport).then(function(airport) {
    var outputParams = {};    
-   outputParams[outputParamNames[0]] = airport.allowed; 
-   outputParams[outputParamNames[1]] = airport.regulations;
+   outputParams['allowed'] = airport.allowed; 
+   outputParams['regulations'] = airport.regulations;
    return outputParams;
   });
 };
@@ -137,8 +143,8 @@ componentServices.getIsAllowed = function (inputParams,outputParamNames) {
 			isAllowed = false;
 		}
 	});
-   outputParams[outputParamNames[0]] = isAllowed; 
-   outputParams[outputParamNames[1]] = airport.regulations;
+   outputParams['isAllowed'] = isAllowed; 
+   outputParams['regulations'] = airport.regulations;
    return outputParams;
   });
 };
@@ -146,8 +152,8 @@ componentServices.getIsAllowed = function (inputParams,outputParamNames) {
 componentServices.getNotAllowedItems = function (inputParams,outputParamNames) {
   return Promise.resolve(airport).then(function(airport) {
    var outputParams = {};    
-   outputParams[outputParamNames[0]] = airport.notAllowed; 
-   outputParams[outputParamNames[1]] = airport.regulations;
+   outputParams['notAllowed'] = airport.notAllowed; 
+   outputParams['regulations'] = airport.regulations;
    return outputParams;
   });
 };
@@ -161,8 +167,8 @@ componentServices.getIsNotAllowed = function (inputParams,outputParamNames) {
 			isNotAllowed = true;
 		}
 	});
-   outputParams[outputParamNames[0]] = isNotAllowed;
-   outputParams[outputParamNames[1]] = airport.regulations;    
+   outputParams['isNotAllowed'] = isNotAllowed;
+   outputParams['regulations'] = airport.regulations;    
    return outputParams;
   });
 };
