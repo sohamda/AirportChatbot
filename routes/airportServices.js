@@ -57,7 +57,7 @@ componentServices.getFlightCheckInCounter = function (inputParams,outputParamNam
 componentServices.getFlightImmigartionInfo = function (inputParams,outputParamNames) {
   return Promise.resolve(airlines).then(function(airlines) {
    var outputParams = {};   
-   outputParams['immigration'] = (getFlightDetails(inputParams.flightNo.toUpperCase()).immigration === "true"); 
+   outputParams['immigration'] = !(getFlightDetails(inputParams.flightNo.toUpperCase()).immigration === "true"); 
    return outputParams;
   });
 };
